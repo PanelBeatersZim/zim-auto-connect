@@ -23,7 +23,19 @@ const CITIES = [
   "Chinhoyi",
 ];
 
-const DEMO_LISTINGS = [
+const DEMO_LISTINGS: {
+  businessName: string;
+  city: string;
+  services: string[];
+  phone: string;
+  whatsapp: string;
+  email: string;
+  address: string;
+  years: number;
+  vehicles: string[];
+  badges: ("Verified" | "Recommended" | "Top Rated")[]; // <--- Enforce allowed types explicitly
+  starRating: number;
+}[] = [
   {
     businessName: "Harare Panelbeaters",
     city: "Harare",
@@ -34,7 +46,7 @@ const DEMO_LISTINGS = [
     address: "123 Samora Machel Ave, Harare",
     years: 15,
     vehicles: ["Cars", "Pickups"],
-    badges: ["Verified", "Recommended"], // Only allowed badge types
+    badges: ["Verified", "Recommended"], // correct values
     starRating: 5,
   },
   {
@@ -47,7 +59,7 @@ const DEMO_LISTINGS = [
     address: "77 Fort Street, Bulawayo",
     years: 8,
     vehicles: ["Cars", "Trucks"],
-    badges: ["Verified"], // Only allowed badge types
+    badges: ["Verified"], // correct value
     starRating: 4,
   },
   {
@@ -60,7 +72,7 @@ const DEMO_LISTINGS = [
     address: "41 Third St, Mutare",
     years: 12,
     vehicles: ["Cars"],
-    badges: [], // [] or omit is OK per type
+    badges: [], // empty okay
     starRating: 4,
   },
 ];
