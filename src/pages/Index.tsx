@@ -1,10 +1,9 @@
-
 // V1: Modern mobile-first Zimbabwe Panel Beaters Directory Landing Page
 
 import { useState } from "react";
 import ListingCard from "../components/ListingCard";
 import { ServiceBubble } from "../components/ServiceBubble";
-import { Phone, Mail, Whatsapp } from "lucide-react";
+import { Phone, Mail, MessageCircle } from "lucide-react";
 
 const SERVICES = [
   { key: "panel-beating", label: "Panel Beating" },
@@ -35,7 +34,7 @@ const DEMO_LISTINGS = [
     address: "123 Samora Machel Ave, Harare",
     years: 15,
     vehicles: ["Cars", "Pickups"],
-    badges: ["Verified", "Recommended"],
+    badges: ["Verified", "Recommended"], // Only the allowed badge types
     starRating: 5,
   },
   {
@@ -48,7 +47,7 @@ const DEMO_LISTINGS = [
     address: "77 Fort Street, Bulawayo",
     years: 8,
     vehicles: ["Cars", "Trucks"],
-    badges: ["Verified"],
+    badges: ["Verified"], // Only the allowed badge types
     starRating: 4,
   },
   {
@@ -61,7 +60,7 @@ const DEMO_LISTINGS = [
     address: "41 Third St, Mutare",
     years: 12,
     vehicles: ["Cars"],
-    badges: [],
+    badges: [], // [] is compatible with the strict union (no badges)
     starRating: 4,
   },
 ];
@@ -103,7 +102,7 @@ export default function Index() {
             rel="noopener"
             className="flex items-center gap-2 px-3 py-2 rounded-lg bg-green-500 text-white font-medium text-sm shadow hover:bg-green-600 transition"
           >
-            <Whatsapp size={20} />
+            <MessageCircle size={20} />
             WhatsApp
           </a>
           <a

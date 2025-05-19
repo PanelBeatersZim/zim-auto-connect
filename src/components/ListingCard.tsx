@@ -1,5 +1,4 @@
-
-import { Phone, Whatsapp, Mail, Copy } from "lucide-react";
+import { Phone, Mail, Copy, MessageCircle } from "lucide-react";
 
 type Listing = {
   businessName: string;
@@ -61,7 +60,7 @@ export function ListingCard({ listing }: Props) {
           link={`tel:${listing.phone}`}
         />
         <ContactButton
-          icon={<Whatsapp size={18} />}
+          icon={<MessageCircle size={18} />}
           label="WhatsApp"
           link={`https://wa.me/${listing.whatsapp.replace(/\D/g, "")}`}
         />
