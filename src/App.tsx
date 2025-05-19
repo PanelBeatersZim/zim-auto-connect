@@ -16,7 +16,16 @@ import BlogPostPage from "./pages/BlogPostPage";
 import PricingPage from "./pages/PricingPage";
 import AddListingPage from "./pages/AddListingPage";
 import ClaimListingPage from "./pages/ClaimListingPage";
-import DashboardHome from "./pages/Dashboard/index";
+import DashboardLayout from "./pages/Dashboard/Layout";
+import DashboardHomePage from "./pages/Dashboard/index";
+import MyListings from "./pages/Dashboard/MyListings";
+import Subscriptions from "./pages/Dashboard/Subscriptions";
+import Claims from "./pages/Dashboard/Claims";
+import Settings from "./pages/Dashboard/Settings";
+import Support from "./pages/Dashboard/Support";
+import AdminPanel from "./pages/Dashboard/AdminPanel";
+import AuthPage from "./pages/AuthPage";
+import { AuthProvider } from "./components/AuthProvider";
 
 const queryClient = new QueryClient();
 
@@ -25,24 +34,37 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/listing/:slug" element={<ListingDetail />} />
-          <Route path="/services/:category" element={<CategoryPage />} />
-          <Route path="/city/:cityname" element={<CityPage />} />
-          <Route path="/blog" element={<BlogPage />} />
-          <Route path="/blog/:slug" element={<BlogPostPage />} />
-          <Route path="/pricing" element={<PricingPage />} />
-          <Route path="/add-listing" element={<AddListingPage />} />
-          <Route path="/claim/:listing" element={<ClaimListingPage />} />
-          <Route path="/dashboard" element={<DashboardHome />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-        <Footer />
-      </BrowserRouter>
+      <AuthProvider>
+        <BrowserRouter>
+          <Header />
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/listing/:slug" element={<ListingDetail />} />
+            <Route path="/services/:category" element={<CategoryPage />} />
+            <Route path="/city/:cityname" element={<CityPage />} />
+            <Route path="/blog" element={<BlogPage />} />
+            <Route path="/blog/:slug" element={<BlogPostPage />} />
+            <Route path="/pricing" element={<PricingPage />} />
+            <Route path="/add-listing" element={<AddListingPage />} />
+            <Route path="/claim/:listing" element={<ClaimListingPage />} />
+            <Route path="/auth" element={<AuthPage />} />
+            <Route path="/register" element={<AuthPage />} />
+            {/* Dashboard routes (protected) */}
+            <Route path="/dashboard" element={<DashboardLayout />}>
+              <Route index element={<DashboardHomePage />} />
+              <Route path="listings" element={<MyListings />} />
+              <Route path="subscriptions" element={<Subscriptions />} />
+              <Route path="claims" element={<Claims />} />
+              <Route path="settings" element={<Settings />} />
+              <Route path="support" element={<Support />} />
+              <Route path="admin" element={<AdminPanel />} />
+            </Route>
+            {/* Catch all */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+          <Footer />
+        </BrowserRouter>
+      </AuthProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );
