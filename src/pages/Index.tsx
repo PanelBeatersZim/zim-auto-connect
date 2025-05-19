@@ -34,7 +34,7 @@ const DEMO_LISTINGS = [
     address: "123 Samora Machel Ave, Harare",
     years: 15,
     vehicles: ["Cars", "Pickups"],
-    badges: ["Verified", "Recommended"], // Only the allowed badge types
+    badges: ["Verified", "Recommended"], // Only allowed badge types
     starRating: 5,
   },
   {
@@ -47,7 +47,7 @@ const DEMO_LISTINGS = [
     address: "77 Fort Street, Bulawayo",
     years: 8,
     vehicles: ["Cars", "Trucks"],
-    badges: ["Verified"], // Only the allowed badge types
+    badges: ["Verified"], // Only allowed badge types
     starRating: 4,
   },
   {
@@ -60,7 +60,7 @@ const DEMO_LISTINGS = [
     address: "41 Third St, Mutare",
     years: 12,
     vehicles: ["Cars"],
-    badges: [], // [] is compatible with the strict union (no badges)
+    badges: [], // [] or omit is OK per type
     starRating: 4,
   },
 ];
