@@ -54,6 +54,10 @@ export type Database = {
         Args: { email: string }
         Returns: undefined
       }
+      select_1: {
+        Args: Record<PropertyKey, never>
+        Returns: undefined
+      }
     }
     Enums: {
       app_role: "admin" | "business_owner" | "visitor"
