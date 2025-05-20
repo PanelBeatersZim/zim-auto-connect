@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useAuth } from "@/components/AuthProvider";
 import { supabase } from "@/integrations/supabase/client";
@@ -6,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 const plans = [
   {
-    key: "free",
+    key: "free" as const,
     name: "Free",
     price: 0,
     features: [
@@ -15,7 +14,7 @@ const plans = [
     cta: "Start Free",
   },
   {
-    key: "standard",
+    key: "standard" as const,
     name: "Standard",
     price: 20,
     features: [
@@ -24,7 +23,7 @@ const plans = [
     cta: "Subscribe Now",
   },
   {
-    key: "premium",
+    key: "premium" as const,
     name: "Premium",
     price: 50,
     features: [
@@ -34,24 +33,43 @@ const plans = [
   },
 ];
 
+function planKeyToRole(
+  key: "free" | "standard" | "premium"
+): "visitor" | "business_owner" | "admin" {
+  if (key === "standard") return "business_owner";
+  if (key === "premium") return "admin"; // Use "admin" if you want premium users to have the most privileges; otherwise, create a new role in your enum!
+  return "visitor";
+}
+
 export default function PricingPage() {
   const { user } = useAuth();
   const [loadingId, setLoadingId] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
   const navigate = useNavigate();
 
-  async function handleSubscribe(planKey: string) {
+  async function handleSubscribe(planKey: "free" | "standard" | "premium") {
     if (!user) {
       navigate("/auth");
       return;
     }
     setLoadingId(planKey);
     setMessage(null);
-    // Store the user's plan in user_roles (for demo; you may have a better place for subscriptions)
+    // Store the user's plan in user_roles (strict typing)
     try {
       await supabase.from("user_roles").delete().eq("user_id", user.id);
-      await supabase.from("user_roles").insert([{ user_id: user.id, role: planKey }]);
-      setMessage(`You are now on the ${planKey.charAt(0).toUpperCase() + planKey.slice(1)} plan.`);
+
+      // Correct typing
+      await supabase.from("user_roles").insert([
+        {
+          user_id: user.id,
+          role: planKeyToRole(planKey),
+        },
+      ]);
+      setMessage(
+        `You are now on the ${
+          planKey.charAt(0).toUpperCase() + planKey.slice(1)
+        } plan.`
+      );
     } catch (err: any) {
       setMessage("Error updating subscription.");
     }
