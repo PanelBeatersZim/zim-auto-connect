@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -26,6 +25,11 @@ import Support from "./pages/Dashboard/Support";
 import AdminPanel from "./pages/Dashboard/AdminPanel";
 import AuthPage from "./pages/AuthPage";
 import { AuthProvider } from "./components/AuthProvider";
+import WhyTrustUsPage from "./pages/WhyTrustUsPage";
+import ContactPage from "./pages/ContactPage";
+import TermsPage from "./pages/TermsPage";
+import PrivacyPage from "./pages/PrivacyPage";
+import BrowseAllPage from "./pages/BrowseAllPage";
 
 const queryClient = new QueryClient();
 
@@ -60,6 +64,11 @@ const App = () => (
               <Route path="admin" element={<AdminPanel />} />
             </Route>
             {/* Catch all */}
+            <Route path="/why-trust-us" element={<WhyTrustUsPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/terms" element={<TermsPage />} />
+            <Route path="/privacy" element={<PrivacyPage />} />
+            <Route path="/browse-all" element={<BrowseAllPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
           <Footer />
