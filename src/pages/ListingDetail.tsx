@@ -1,12 +1,21 @@
-
 import { useParams } from "react-router-dom";
+import { MapPin } from "lucide-react";
 
 export default function ListingDetail() {
-  const { slug } = useParams();
+  // Accept both category and slug in url
+  const { category = "panel-beaters", slug } = useParams();
+
+  // Simulated listing (update as needed)
+  const listing = {
+    businessName: "Panel Beater: " + slug,
+    category,
+    mapsUrl: "https://maps.app.goo.gl/XYZ",
+    // ...other fields here
+  };
 
   return (
     <div className="max-w-2xl mx-auto py-8 px-4">
-      <h1 className="text-3xl font-bold mb-2">Panel Beater: {slug}</h1>
+      <h1 className="text-3xl font-bold mb-2">{listing.businessName}</h1>
       <div className="mb-4">
         <span className="inline-block bg-primary text-white rounded px-2 py-1 text-xs mr-2">Verified</span>
         <span className="inline-block bg-accent text-white rounded px-2 py-1 text-xs">Top Rated</span>
@@ -25,6 +34,18 @@ export default function ListingDetail() {
         <a href="tel:0772000000" className="bg-primary text-white rounded px-4 py-2">Call</a>
         <a href="https://wa.me/263772000000" target="_blank" rel="noopener" className="bg-green-500 text-white rounded px-4 py-2">WhatsApp</a>
         <a href="mailto:info@example.com" className="bg-accent text-white rounded px-4 py-2">Email</a>
+        {listing.mapsUrl && (
+          <a
+            href={listing.mapsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex gap-2 items-center px-4 py-2 bg-blue-600 text-white font-semibold rounded shadow hover:bg-blue-700"
+            aria-label="View on Google Maps"
+          >
+            <MapPin size={18} />
+            Maps
+          </a>
+        )}
       </div>
       <div className="bg-gray-100 rounded p-4">
         <h2 className="font-semibold mb-1">Ratings</h2>

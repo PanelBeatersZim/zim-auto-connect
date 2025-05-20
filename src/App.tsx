@@ -2,18 +2,14 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
-import ListingDetail from "./pages/ListingDetail";
 import CategoryPage from "./pages/CategoryPage";
-import CityPage from "./pages/CityPage";
-import BlogPage from "./pages/BlogPage";
-import BlogPostPage from "./pages/BlogPostPage";
-import PricingPage from "./pages/PricingPage";
 import AddListingPage from "./pages/AddListingPage";
+import ListingDetail from "./pages/ListingDetail";
 import ClaimListingPage from "./pages/ClaimListingPage";
 import DashboardLayout from "./pages/Dashboard/Layout";
 import DashboardHomePage from "./pages/Dashboard/index";
@@ -24,7 +20,6 @@ import Settings from "./pages/Dashboard/Settings";
 import Support from "./pages/Dashboard/Support";
 import AdminPanel from "./pages/Dashboard/AdminPanel";
 import AuthPage from "./pages/AuthPage";
-import { AuthProvider } from "./components/AuthProvider";
 import WhyTrustUsPage from "./pages/WhyTrustUsPage";
 import ContactPage from "./pages/ContactPage";
 import TermsPage from "./pages/TermsPage";
@@ -43,9 +38,15 @@ const App = () => (
           <Header />
           <Routes>
             <Route path="/" element={<Index />} />
-            <Route path="/listing/:slug" element={<ListingDetail />} />
+            {/* New URL structure for listings */}
             <Route path="/services/:category" element={<CategoryPage />} />
-            <Route path="/city/:cityname" element={<CityPage />} />
+            <Route path="/services/:category/:city" element={<CategoryPage />} />
+            <Route path="/services/:category/:slug" element={<ListingDetail />} />
+
+            {/* Legacy/other route redirects (optional clean-up) */}
+            <Route path="/listing/:slug" element={<Navigate to="/" />} />
+            <Route path="/city/:cityname" element={<Navigate to="/" />} />
+            {/* Other pages */}
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/blog/:slug" element={<BlogPostPage />} />
             <Route path="/pricing" element={<PricingPage />} />
