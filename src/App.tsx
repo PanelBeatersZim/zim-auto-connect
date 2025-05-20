@@ -63,7 +63,6 @@ const App = () => (
               <Route path="support" element={<Support />} />
               <Route path="admin" element={<AdminPanel />} />
             </Route>
-            {/* Catch all */}
             <Route path="/why-trust-us" element={<WhyTrustUsPage />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/terms" element={<TermsPage />} />

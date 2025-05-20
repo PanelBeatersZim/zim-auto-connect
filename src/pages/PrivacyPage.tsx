@@ -7,19 +7,20 @@ export default function PrivacyPage() {
     <div className="max-w-2xl mx-auto px-4 py-10">
       <Helmet>
         <title>Privacy Policy | PanelBeaters.co.zw</title>
-        <meta name="description" content="Our privacy policy details how we protect your information at PanelBeaters.co.zw, Zimbabwe’s trusted car repair directory." />
+        <meta name="description" content="PanelBeaters.co.zw privacy policy for how we collect, process, and protect your personal data. Transparent practices for Zimbabwe’s car body repair community." />
       </Helmet>
       <h1 className="text-3xl font-bold mb-4">Privacy Policy</h1>
-      <h2 className="text-xl font-semibold mb-3">How We Use Your Info</h2>
+      <h2 className="text-xl font-semibold mb-3">How We Handle Your Data</h2>
       <p className="mb-3">
-        Your personal information is only used with your consent and will never be sold to third parties. Data is secured using SSL encryption.
+        We only collect personal data you provide, never share it without consent, and use SSL encryption to keep it safe.
       </p>
       <ul className="list-disc ml-6 mb-2">
-        <li>Cookies for site functionality only</li>
-        <li>Email addresses and phone numbers are not published without consent</li>
+        <li>Cookies are used for basic site operation</li>
+        <li>Email/phone are never published without approval</li>
+        <li>See our <Link to="/terms" className="underline text-primary">Terms & Conditions</Link> for details</li>
       </ul>
       <p>
-        For questions, contact us at <a className="text-primary underline" href="mailto:support@panelbeaters.co.zw">support@panelbeaters.co.zw</a>.
+        Have questions? Email <a href="mailto:support@panelbeaters.co.zw" className="text-primary underline">support@panelbeaters.co.zw</a> anytime.
       </p>
       <div className="bg-accent/10 p-4 rounded-lg mt-6 mb-2">
         <Link to="/" className="text-primary underline">Go to Homepage</Link>
