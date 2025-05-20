@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -6,7 +7,6 @@ import { Button } from "@/components/ui/button";
 
 import AuthSignUpForm from "@/components/AuthSignUpForm";
 import AuthSignInForm from "@/components/AuthSignInForm";
-import { useState } from "react";
 
 export default function AuthPage() {
   const [mode, setMode] = useState<"login" | "register">("login");
