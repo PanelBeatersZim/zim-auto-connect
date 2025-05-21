@@ -38,7 +38,7 @@ export default function FAQAccordion({ faqs, singleOpen = true, ariaLabel }: Pro
               {openIndex === idx ? <Minus className="w-5 h-5" /> : <Plus className="w-5 h-5" />}
             </span>
           </AccordionTrigger>
-          <AccordionContent forceMount={openIndex === idx}>
+          <AccordionContent forceMount={openIndex === idx ? true : undefined}>
             <div className="py-1 text-[.98rem] text-gray-700">{faq.answer}</div>
           </AccordionContent>
         </AccordionItem>
