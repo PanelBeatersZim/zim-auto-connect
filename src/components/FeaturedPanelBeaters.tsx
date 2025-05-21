@@ -1,27 +1,31 @@
 
 import { Link } from "react-router-dom";
 
+// Dummy data: add "category" to each item for accurate routing.
 const dummy = [
   {
     name: "Auto Body Experts",
     location: "Harare",
     rating: 4.8,
     image: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?auto=format&fit=crop&w=400&q=60",
-    slug: "auto-body-experts"
+    slug: "auto-body-experts",
+    category: "panel-beating"
   },
   {
     name: "ProFix Panelbeaters",
     location: "Bulawayo",
     rating: 4.7,
     image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&fit=crop&w=400&q=60",
-    slug: "profix-panelbeaters"
+    slug: "profix-panelbeaters",
+    category: "panel-beating"
   },
   {
     name: "Kwese Body Shop",
     location: "Mutare",
     rating: 4.6,
     image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=400&q=60",
-    slug: "kwese-body-shop"
+    slug: "kwese-body-shop",
+    category: "panel-beating"
   },
 ];
 
@@ -51,7 +55,7 @@ export default function FeaturedPanelBeaters() {
                   <span className="ml-2 text-sm text-gray-700">{item.rating}</span>
                 </div>
                 <Link
-                  to={`/services/panel-beaters/${item.slug}`}
+                  to={`/services/${item.category}/${item.slug}`}
                   className="mt-2 text-xs px-2 py-1 bg-primary text-white rounded hover:bg-primary/90"
                 >
                   View Details
@@ -64,3 +68,4 @@ export default function FeaturedPanelBeaters() {
     </section>
   );
 }
+

@@ -1,6 +1,15 @@
-import { useParams, Link, useNavigate } from "react-router-dom";
+
+import { useParams, Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import FAQAccordion from "@/components/FAQAccordion";
+
+// Helper to generate a slug given a business name
+function slugify(name: string) {
+  return name
+    .toLowerCase()
+    .replace(/\s+/g, "-")
+    .replace(/[^a-z0-9\-]/g, "");
+}
 
 const getFaqs = (category: string, city?: string) => {
   // Add contextual sample FAQs - consider more categories if desired
@@ -23,24 +32,27 @@ const getFaqs = (category: string, city?: string) => {
 }
 
 export default function CategoryPage() {
-  // Accept category and (optional) city filter from url
-  const { category = "panel-beaters", city } = useParams();
+  const { category = "panel-beating", city } = useParams();
 
-  // Example listings (replace with API/data fetch for real)
+  // Always include "category" for later
   const listings = [
     {
-      slug: "best-auto-harare",
+      slug: slugify("Best Auto Clinic"),
       businessName: "Best Auto Clinic",
       city: "harare",
       services: [category.replace("-", " ")],
-      detailUrl: `/services/${category}/${"best-auto-harare"}${city ? "?city=" + encodeURIComponent(city) : ""}`,
+      detailUrl: `/services/${category}/${slugify("Best Auto Clinic")}${city ? "?city=" + encodeURIComponent(city) : ""}`,
+      category,
+      plan: "premium"
     },
     {
-      slug: "paint-pros-bulawayo",
+      slug: slugify("Paint Pros"),
       businessName: "Paint Pros",
       city: "bulawayo",
       services: [category.replace("-", " ")],
-      detailUrl: `/services/${category}/${"paint-pros-bulawayo"}${city ? "?city=" + encodeURIComponent(city) : ""}`,
+      detailUrl: `/services/${category}/${slugify("Paint Pros")}${city ? "?city=" + encodeURIComponent(city) : ""}`,
+      category,
+      plan: "standard"
     },
   ].filter(
     (l) => !city || l.city.toLowerCase() === city?.toLowerCase()
@@ -88,35 +100,26 @@ export default function CategoryPage() {
       )}
       {/* Listings */}
       <div className="grid gap-4">
-        {listings.map((listing) => {
-          // Generate slug from business name if not present
-          const slug =
-            listing.slug ||
-            listing.businessName
-              .toLowerCase()
-              .replace(/\s+/g, "-")
-              .replace(/[^a-z0-9\-]/g, "");
-          return (
-            <div key={slug} className="border rounded p-4 bg-card shadow-sm">
-              <strong>{listing.businessName}</strong>
-              <div>City: {listing.city.charAt(0).toUpperCase() + listing.city.slice(1)}</div>
-              <div>Services: {listing.services.join(", ")}</div>
-              <Link
-                to={`/services/${category}/${slug}`}
-                className="mt-2 inline-block bg-primary text-white px-3 py-1 rounded"
-              >
-                View Details
-              </Link>
-            </div>
-          );
-        })}
+        {listings.map((listing) => (
+          <div key={listing.slug} className="border rounded p-4 bg-card shadow-sm">
+            <strong>{listing.businessName}</strong>
+            <div>City: {listing.city.charAt(0).toUpperCase() + listing.city.slice(1)}</div>
+            <div>Services: {listing.services.join(", ")}</div>
+            <Link
+              to={`/services/${listing.category}/${listing.slug}`}
+              className="mt-2 inline-block bg-primary text-white px-3 py-1 rounded"
+            >
+              View Details
+            </Link>
+          </div>
+        ))}
       </div>
       {/* FAQ Accordion */}
       <div className="mt-8 mb-10">
         <h2 className="text-lg font-bold mb-4">Frequently Asked Questions</h2>
         <FAQAccordion faqs={getFaqs(category, city)} ariaLabel={`FAQs about ${category}${city ? " in " + city : ""}`} />
       </div>
-      {/* Old FAQ/ul removed */}
     </div>
   );
 }
+

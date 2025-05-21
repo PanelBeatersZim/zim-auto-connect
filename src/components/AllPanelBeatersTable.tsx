@@ -1,10 +1,11 @@
 
 import { Link } from "react-router-dom";
 
+// Add a category field for each listing for proper routing.
 const listings = [
-  { name: 'Auto Body Experts', location: 'Harare', services: 'Collision Repair', rating: '4.8', slug: "auto-body-experts" },
-  { name: 'Panel King', location: 'Bulawayo', services: 'Panel Beating', rating: '4.7', slug: "panel-king" },
-  { name: 'Trust Panel', location: 'Masvingo', services: 'Dent Removal', rating: '4.5', slug: "trust-panel" },
+  { name: 'Auto Body Experts', location: 'Harare', services: 'Collision Repair', rating: '4.8', slug: "auto-body-experts", category: "panel-beating" },
+  { name: 'Panel King', location: 'Bulawayo', services: 'Panel Beating', rating: '4.7', slug: "panel-king", category: "panel-beating" },
+  { name: 'Trust Panel', location: 'Masvingo', services: 'Dent Removal', rating: '4.5', slug: "trust-panel", category: "panel-beating" },
 ];
 
 export default function AllPanelBeatersTable() {
@@ -32,10 +33,10 @@ export default function AllPanelBeatersTable() {
                   <td className="px-3 py-2 font-semibold text-yellow-500">{listing.rating}</td>
                   <td className="px-3 py-2">
                     <Link
-                      to={`/services/panel-beaters/${listing.slug}`}
+                      to={`/services/${listing.category}/${listing.slug}`}
                       className="text-xs px-2 py-1 bg-primary text-white rounded hover:bg-primary/90"
                     >
-                      View
+                      View Details
                     </Link>
                   </td>
                 </tr>
@@ -47,3 +48,4 @@ export default function AllPanelBeatersTable() {
     </section>
   );
 }
+
