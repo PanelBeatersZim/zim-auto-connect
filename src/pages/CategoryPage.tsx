@@ -1,6 +1,26 @@
-
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import FAQAccordion from "@/components/FAQAccordion";
+
+const getFaqs = (category: string, city?: string) => {
+  // Add contextual sample FAQs - consider more categories if desired
+  if (category.includes("panel")) {
+    return [
+      { question: "What does a panel beater do?", answer: "A panel beater repairs car body damage, including dents, collision repairs, and fabrication." },
+      { question: "How long does a car body repair take?", answer: "Most repairs take 2-5 days, depending on severity and parts availability." },
+      { question: `Are panel beaters in ${city ? city.charAt(0).toUpperCase() + city.slice(1) : "Zimbabwe"} insurance-approved?`, answer: "Many are insurance-approved. Check details in the listings or call ahead." },
+      { question: "Can I get a quote online?", answer: "Many shops offer quotes by phone, WhatsApp, or email using photos of the damage." },
+      { question: "Do I need an appointment?", answer: "Appointments aren’t always required, but calling ahead is recommended." },
+      { question: "What’s the difference between panel beating and spray painting?", answer: "Panel beating repairs structural damage, spray painting restores factory-finish looks." },
+      { question: "How do I know a shop is verified?", answer: "Look for a Verified badge or see recommended/top-rated shops on the site." },
+      { question: "Are weekend repairs available?", answer: "Some shops offer Saturday service—check the listing details." },
+    ];
+  }
+  // Add spray, windscreen, etc.
+  return [
+    { question: "How do I book this service?", answer: "Contact a provider via their listing to book." },
+  ];
+}
 
 export default function CategoryPage() {
   // Accept category and (optional) city filter from url
@@ -68,27 +88,35 @@ export default function CategoryPage() {
       )}
       {/* Listings */}
       <div className="grid gap-4">
-        {listings.map((listing) => (
-          <div key={listing.slug} className="border rounded p-4 bg-card shadow-sm">
-            <strong>{listing.businessName}</strong>
-            <div>City: {listing.city.charAt(0).toUpperCase() + listing.city.slice(1)}</div>
-            <div>Services: {listing.services.join(", ")}</div>
-            <Link
-              to={listing.detailUrl}
-              className="mt-2 inline-block bg-primary text-white px-3 py-1 rounded"
-            >
-              View Details
-            </Link>
-          </div>
-        ))}
+        {listings.map((listing) => {
+          // Generate slug from business name if not present
+          const slug =
+            listing.slug ||
+            listing.businessName
+              .toLowerCase()
+              .replace(/\s+/g, "-")
+              .replace(/[^a-z0-9\-]/g, "");
+          return (
+            <div key={slug} className="border rounded p-4 bg-card shadow-sm">
+              <strong>{listing.businessName}</strong>
+              <div>City: {listing.city.charAt(0).toUpperCase() + listing.city.slice(1)}</div>
+              <div>Services: {listing.services.join(", ")}</div>
+              <Link
+                to={`/services/${category}/${slug}`}
+                className="mt-2 inline-block bg-primary text-white px-3 py-1 rounded"
+              >
+                View Details
+              </Link>
+            </div>
+          );
+        })}
       </div>
-      <div className="mt-8">
-        <h2 className="text-lg font-bold mb-2">Category FAQs</h2>
-        <ul>
-          <li>How do I find a trusted shop?</li>
-          <li>What’s the average price for {category.replace("-", " ")}?</li>
-        </ul>
+      {/* FAQ Accordion */}
+      <div className="mt-8 mb-10">
+        <h2 className="text-lg font-bold mb-4">Frequently Asked Questions</h2>
+        <FAQAccordion faqs={getFaqs(category, city)} ariaLabel={`FAQs about ${category}${city ? " in " + city : ""}`} />
       </div>
+      {/* Old FAQ/ul removed */}
     </div>
   );
 }

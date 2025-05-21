@@ -34,7 +34,7 @@ import PricingPage from "./pages/PricingPage";
 
 // This was missing:
 import { AuthProvider } from "@/components/AuthProvider";
-
+import { ScrollToTop } from "@/components/ScrollToTop";
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -44,6 +44,7 @@ const App = () => (
       <Sonner />
       <AuthProvider>
         <BrowserRouter>
+          <ScrollToTop />
           <Header />
           <Routes>
             <Route path="/" element={<Index />} />
