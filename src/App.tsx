@@ -52,10 +52,9 @@ const App = () => (
             <Route path="/services/:category" element={<CategoryPage />} />
             <Route path="/services/:category/:city" element={<CategoryPage />} />
             <Route path="/services/:category/:slug" element={<ListingDetail />} />
-
-            {/* Legacy/other route redirects (optional clean-up) */}
+            {/* Remove these legacy routes:
             <Route path="/listing/:slug" element={<Navigate to="/" />} />
-            <Route path="/city/:cityname" element={<Navigate to="/" />} />
+            <Route path="/city/:cityname" element={<Navigate to="/" />} /> */}
             {/* Other pages */}
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/blog/:slug" element={<BlogPostPage />} />

@@ -115,7 +115,7 @@ export default function Index() {
   const [selectedService, setSelectedService] = useState<string | null>(null);
   const [selectedCity, setSelectedCity] = useState<string | null>(null);
 
-  // Filter logic is for demo only
+  // Updated filter logic for demo (city/category filter)
   const filtered = DEMO_LISTINGS.filter((l) => {
     const matchService = selectedService
       ? l.services.includes(
@@ -128,6 +128,17 @@ export default function Index() {
       : true;
     return matchService && matchCity && matchSearch;
   });
+
+  // Helper to slugify values
+  function slugify(str: string) {
+    return str
+      .toLowerCase()
+      .replace(/\s+/g, "-")
+      .replace(/[^a-z0-9\-]/g, "");
+  }
+
+  // We'll use "panel-beating" as the main category for city browsing
+  const MAIN_CATEGORY = "panel-beating";
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
@@ -184,7 +195,13 @@ export default function Index() {
                 <div className="text-lg font-semibold">{shop.name}</div>
                 <div className="text-sm text-gray-500 mb-1">{shop.city}</div>
                 <span className="text-yellow-400">{'★'.repeat(shop.star)}<span className="text-gray-300">{'★'.repeat(5 - shop.star)}</span></span>
-                <Link to={`/listing/${shop.name.toLowerCase().replace(/\s/g, "-")}`} className="mt-2 text-xs px-2 py-1 bg-primary text-white rounded">View</Link>
+                {/* Updated View button */}
+                <Link
+                  to={`/services/${slugify("panel-beating")}/${slugify(shop.name)}`}
+                  className="mt-2 text-xs px-2 py-1 bg-primary text-white rounded"
+                >
+                  View
+                </Link>
               </div>
             ))}
           </div>
@@ -195,26 +212,34 @@ export default function Index() {
       <section id="filters" className="py-6 bg-white border-t border-b">
         <div className="flex flex-col gap-3 items-center">
           <h3 className="font-semibold text-lg mb-2">Find Shops by City or Service</h3>
-          {/* Service Bubbles */}
+          {/* Service Bubbles updated to route! */}
           <div className="flex flex-wrap gap-2 mb-2 justify-center">
             {SERVICES.map((svc) => (
-              <ServiceBubble
+              <Link
                 key={svc.key}
-                label={svc.label}
-                icon={svc.icon}
-                selected={selectedService === svc.key}
+                to={`/services/${slugify(svc.label)}`}
+                className={`flex items-center gap-2 px-4 py-2 rounded-full border text-sm font-medium shadow hover:scale-105 transition-all duration-150 ${
+                  selectedService === svc.key
+                    ? "bg-primary text-white border-primary"
+                    : "bg-white text-primary border-primary"
+                }`}
+                aria-current={selectedService === svc.key ? "page" : undefined}
                 onClick={() =>
                   setSelectedService((cur) => (cur === svc.key ? null : svc.key))
                 }
-              />
+                style={{ minWidth: 90 }}
+              >
+                {svc.icon}
+                <span>{svc.label}</span>
+              </Link>
             ))}
           </div>
-          {/* City list */}
+          {/* City buttons updated for correct routing */}
           <div className="flex flex-wrap gap-2 mb-2 justify-center">
             {CITIES.map((city) => (
               <Link
                 key={city}
-                to={`/city/${city.toLowerCase()}`}
+                to={`/services/${MAIN_CATEGORY}/${slugify(city)}`}
                 className="px-3 py-1 text-sm rounded border border-primary text-primary bg-white hover:bg-primary hover:text-white transition"
               >
                 {city}

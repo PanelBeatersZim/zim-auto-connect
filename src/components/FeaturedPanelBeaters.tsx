@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 
 // Dummy data: add "category" to each item for accurate routing.
@@ -68,4 +67,3 @@ export default function FeaturedPanelBeaters() {
     </section>
   );
 }
-
