@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -20,7 +19,9 @@ export default {
 		},
 		extend: {
 			fontFamily: {
-				sans: ['Montserrat', 'ui-sans-serif', 'system-ui'],
+				sans: ['Work Sans', 'Noto Sans', 'Montserrat', 'ui-sans-serif', 'system-ui'],
+				work: ['Work Sans', 'Montserrat', 'sans-serif'],
+				noto: ['Noto Sans', 'Montserrat', 'sans-serif'],
 			},
 			colors: {
 				primary: {
@@ -61,4 +62,3 @@ export default {
 	},
 	plugins: [require("tailwindcss-animate")],
 } satisfies Config;
-
